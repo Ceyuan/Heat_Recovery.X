@@ -1,0 +1,96 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[; ;delay.h: 50: extern void DelayMs(unsigned char);
+[; ;delay.h: 51: extern void DelaySec(char sec);
+"12 delay.c
+[v _DelayMs `(v ~T0 @X0 1 ef1`uc ]
+"13
+{
+[; ;delay.c: 11: void
+[; ;delay.c: 12: DelayMs(unsigned char cnt)
+[; ;delay.c: 13: {
+[e :U _DelayMs ]
+"12
+[v _cnt `uc ~T0 @X0 1 r1 ]
+"13
+[f ]
+"21
+[v _i `uc ~T0 @X0 1 a ]
+[; ;delay.c: 21: unsigned char i;
+[; ;delay.c: 22: do {
+"22
+[e :U 4 ]
+{
+[; ;delay.c: 23: i = 4;
+"23
+[e = _i -> -> 4 `i `uc ]
+[; ;delay.c: 24: do {
+"24
+[e :U 7 ]
+{
+[; ;delay.c: 25: { unsigned char _dcnt; _dcnt = (250)/((12*1000L)/(4*1000L))|1; while(--_dcnt != 0) continue; };
+"25
+{
+[v __dcnt `uc ~T0 @X0 1 a ]
+[e = __dcnt -> | / -> -> 250 `i `l / * -> -> 12 `i `l -> 1000 `l * -> -> 4 `i `l -> 1000 `l -> -> 1 `i `l `uc ]
+[e $U 8  ]
+[e :U 9 ]
+[e $U 8  ]
+[e :U 8 ]
+[e $ != -> =- __dcnt -> -> 1 `i `uc `i -> 0 `i 9  ]
+[e :U 10 ]
+}
+"26
+}
+[; ;delay.c: 26: } while(--i);
+[e $ != -> =- _i -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 7  ]
+[e :U 6 ]
+"27
+}
+[; ;delay.c: 27: } while(--cnt);
+[e $ != -> =- _cnt -> -> 1 `i `uc `i -> -> -> 0 `i `uc `i 4  ]
+[e :U 3 ]
+[; ;delay.c: 29: }
+"29
+[e :UE 1 ]
+}
+"32
+[v _DelaySec `(v ~T0 @X0 1 ef1`uc ]
+"33
+{
+[; ;delay.c: 31: void
+[; ;delay.c: 32: DelaySec(char sec)
+[; ;delay.c: 33: {
+[e :U _DelaySec ]
+"32
+[v _sec `uc ~T0 @X0 1 r1 ]
+"33
+[f ]
+"34
+[v _loop `uc ~T0 @X0 1 a ]
+[; ;delay.c: 34: char loop;
+[; ;delay.c: 35: for(loop=0;loop<=sec*4;loop++)
+"35
+{
+[e = _loop -> -> 0 `i `uc ]
+[e $U 15  ]
+"36
+[e :U 12 ]
+[; ;delay.c: 36: {
+{
+[; ;delay.c: 37: DelayMs(250);
+"37
+[e ( _DelayMs (1 -> -> 250 `i `uc ]
+"38
+}
+"35
+[e ++ _loop -> -> 1 `i `uc ]
+[e :U 15 ]
+[e $ <= -> _loop `i * -> _sec `i -> 4 `i 12  ]
+[e :U 13 ]
+"38
+}
+[; ;delay.c: 38: }
+[; ;delay.c: 39: }
+"39
+[e :UE 11 ]
+}
